@@ -1,4 +1,4 @@
-@baseUrl = http://localhost:5000
+@baseUrl = http://20.253.19.115:5000
 
 ### 🟢 GET - Listar todas as tags RFID
 GET {{baseUrl}}/api/tagrfid

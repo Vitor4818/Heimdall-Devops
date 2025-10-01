@@ -31,7 +31,7 @@ az acr import --name heimdallregister --source docker.io/library/postgres:15 --i
 
 
 8: Rodar os containers:
-cd heimdall-devops
+cd scripts
 chmod +x deploy.sh
 ./deploy.sh
 

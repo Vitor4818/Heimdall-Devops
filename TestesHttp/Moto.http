@@ -1,11 +1,11 @@
-@baseUrl = http://localhost:5000
+@baseUrl = http://20.253.19.115:5000
 
 ### 🟢 GET - Listar todas as motos
 GET {{baseUrl}}/api/Motos
 Accept: application/json
 
 ### 🟡 GET - Obter moto por ID
-GET {{baseUrl}}/api/Motos/11
+GET {{baseUrl}}/api/Motos/1
 Accept: application/json
 
 ### 🔵 POST - Cadastrar nova moto
