@@ -22,20 +22,18 @@ docker push heimdallregister.azurecr.io/postgres:15
 5: Listar as imagens no registro
 az acr repository list --name heimdallregister --output table
 
-6: Pegar as credenciais do registro
-az acr credential show --name heimdallregister 
+6: Remover os containers locais
+docker rmi heimdallregister.azurecr.io/heimdall-api:1.1
+docker rmi heimdallregister.azurecr.io/postgres:15
 
-7: Remover os containers locais
-docker rmi heimdallregister.azurecr.io/users-api:1.0
-docker rmi heimdallregister.azurecr.io/motos-api:1.0
-
-8: Importar o postgres
+7: Importar o postgres
 az acr import --name heimdallregister --source docker.io/library/postgres:15 --image postgres:15
 
 
-9: Rodar os containers:
+8: Rodar os containers:
+cd heimdall-devops
 chmod +x deploy.sh
 ./deploy.sh
 
-10: Listar os containers
+9: Listar os containers
 az container list --resource-group rg-heimdallapp --output table
