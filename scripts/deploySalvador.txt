@@ -1,0 +1,48 @@
+1: Criando grupo de recursos
+az group create --name rg-heimdallapp --location eastus
+az account list -o table
+az account set --subscription <“nome” ou id>
+
+2: Criar um registo de Container Privado
+az provider register --namespace Microsoft.ContainerRegistry
+
+az acr create --resource-group rg-heimdallapp --name heimdallregister --sku Standard --location eastus --public-network-enabled true --admin-enabled true
+
+3: Logar no register
+az acr login --name heimdallregister
+
+4: Mandar as imagens para o register
+
+4.1: Realizar o Build da imagem:
+docker build -t heimdall-api:1.0 .
+
+docker tag heimdall-api:1.0 heimdallregister.azurecr.io/heimdall-api:1.1
+docker push heimdallregister.azurecr.io/heimdall-api:1.1
+
+docker tag postgres:15 heimdallregister.azurecr.io/postgres:15
+docker push heimdallregister.azurecr.io/postgres:15
+
+
+
+5: Listar as imagens no registro
+az acr repository list --name heimdallregister --output table
+
+6: Pegar as credenciais do registro
+az acr credential show --name heimdallregister 
+
+7: Remover os containers locais
+docker rmi heimdallregister.azurecr.io/users-api:1.0
+docker rmi heimdallregister.azurecr.io/motos-api:1.0
+
+
+8: Importar o postgres
+az acr import --name heimdallregister --source docker.io/library/postgres:15 --image postgres:15
+
+
+
+9: Rodar os containers:
+chmod +x deploy.sh
+./deploy.sh
+
+10: Listar os containers
+az container list --resource-group rg-heimdallapp --output table
