@@ -13,16 +13,11 @@ az acr login --name heimdallregister
 
 4: Mandar as imagens para o register
 
-4.1: Realizar o Build da imagem:
-docker build -t heimdall-api:1.0 .
-
 docker tag heimdall-api:1.0 heimdallregister.azurecr.io/heimdall-api:1.1
 docker push heimdallregister.azurecr.io/heimdall-api:1.1
 
 docker tag postgres:15 heimdallregister.azurecr.io/postgres:15
 docker push heimdallregister.azurecr.io/postgres:15
-
-
 
 5: Listar as imagens no registro
 az acr repository list --name heimdallregister --output table
@@ -34,10 +29,8 @@ az acr credential show --name heimdallregister
 docker rmi heimdallregister.azurecr.io/users-api:1.0
 docker rmi heimdallregister.azurecr.io/motos-api:1.0
 
-
 8: Importar o postgres
 az acr import --name heimdallregister --source docker.io/library/postgres:15 --image postgres:15
-
 
 
 9: Rodar os containers:
